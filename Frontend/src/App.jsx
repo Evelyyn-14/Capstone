@@ -7,7 +7,7 @@ import AppPage from './AppPage.jsx';
 
 export function App(params) {
 
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("Testuser");
 
   return (
     <BrowserRouter>
