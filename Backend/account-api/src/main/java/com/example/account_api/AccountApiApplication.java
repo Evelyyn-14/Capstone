@@ -1,14 +1,13 @@
-package com.example.customer_api;
+package com.example.account_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CustomerApiApplication {
+public class AccountApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CustomerApiApplication.class, args);
+		SpringApplication.run(AccountApiApplication.class, args);
 	}
 
 }
-	 
