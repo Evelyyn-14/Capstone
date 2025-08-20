@@ -2,6 +2,8 @@ package com.example.customer_api.controller;
 
 import com.example.customer_api.model.Customer;
 import com.example.customer_api.repository.CustomerRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")   // allow frontend access
 public class CustomerController {
 
+    @Autowired
     private final CustomerRepository repository;
 
     public CustomerController(CustomerRepository repository) {
@@ -26,11 +29,10 @@ public class CustomerController {
 
     // GET by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
+        return ResponseEntity.of(repository.findById(id));
     }
+    
 
     // POST (create new)
     @PostMapping
@@ -60,7 +62,7 @@ public class CustomerController {
     }
 
     // Lookup by name
-    @PostMapping("/byname")
+    @PostMapping(value = "/byname")
     public ResponseEntity<Customer> getCustomerByName(@RequestBody String name) {
         return repository.findByName(name.trim())
                 .map(ResponseEntity::ok)
