@@ -1,9 +1,9 @@
-package main.java.com.example.account_api.controller;
+package com.example.account_api.controller;
 
-import com.example.accountservice.dto.LoginRequest;
-import com.example.accountservice.entity.User;
-import com.example.accountservice.repository.UserRepository;
-import com.example.accountservice.util.JwtUtil;
+import com.example.account_api.dto.LoginRequest;
+import com.example.account_api.entity.User;
+import com.example.account_api.repository.UserRepository;
+import com.example.account_api.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

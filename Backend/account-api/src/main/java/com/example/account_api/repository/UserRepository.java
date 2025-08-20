@@ -1,10 +1,11 @@
-package main.java.com.example.account_api.repository;
+package com.example.account_api.repository;
 
 import java.util.Optional;
 
-import main.java.com.example.account_api.entity.User;
+import com.example.account_api.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository<User> extends JpaRepository<User, Long> {
     Optional<User> findByName(String name);
     boolean existsByName(String name);
 } 

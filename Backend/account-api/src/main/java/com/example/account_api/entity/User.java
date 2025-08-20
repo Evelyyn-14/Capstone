@@ -1,10 +1,12 @@
-package main.java.com.example.account_api.entity;
+package com.example.account_api.entity;
 
 
+import jakarta.persistence.*;
 
 @Entity
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)

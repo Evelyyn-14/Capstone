@@ -1,4 +1,4 @@
-package main.java.com.example.account_api.util;
+package com.example.account_api.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
