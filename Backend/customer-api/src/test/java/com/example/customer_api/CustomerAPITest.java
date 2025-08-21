@@ -110,6 +110,14 @@ public class CustomerAPITest {
         ResponseEntity<Void> response =
                 template.exchange(baseUrl + "/" + saved.getId(), HttpMethod.DELETE, null, Void.class);
 
+        // Enhanced error reporting
+        if (response.getStatusCode() != HttpStatus.NO_CONTENT) {
+            System.out.println("Delete failed with status: " + response.getStatusCode());
+            System.out.println("Response headers: " + response.getHeaders());
+            System.out.println("Customer ID: " + saved.getId());
+            System.out.println("URL: " + baseUrl + "/" + saved.getId());
+        }
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         assertThat(repository.existsById(saved.getId())).isFalse();
     }
