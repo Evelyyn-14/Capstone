@@ -17,15 +17,24 @@ services:
     volumes:
       - account_data:/data/accounts
 
-  frontend:
+  events-api:
     build:
-      context: ./frontend
+      context: ./backend/events-api
     ports:
-      - "3000:80"
-    depends_on:
-      - customer-api
-      - account-api
+      - "8080:8080"
+    volumes:
+      - events_data:/data/events
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #   ports:
+  #     - "3000:80"
+  #   depends_on:
+  #     - customer-api
+  #     - account-api
 
 volumes:
   customer_data:
   account_data:
+  events_data:
