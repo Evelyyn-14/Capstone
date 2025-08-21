@@ -33,7 +33,6 @@ public class AccountController {
         if (userRepository.findByName(user.getName()).isPresent()) {
             return ResponseEntity.badRequest().body("Username already exists.");
         }
-        // Hash the password before saving!
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return ResponseEntity.ok("User registered successfully.");
