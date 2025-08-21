@@ -1,4 +1,4 @@
-package com.example.events_api;
+import com.example.events_api;
 
 import com.example.events_api.model.Event;
 import com.example.events_api.repository.EventRepository;
