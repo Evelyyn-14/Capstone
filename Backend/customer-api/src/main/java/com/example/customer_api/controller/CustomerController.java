@@ -54,11 +54,18 @@ public class CustomerController {
     // DELETE
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
-        if (!repository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+        try {
+            if (!repository.existsById(id)) {
+                return ResponseEntity.notFound().build();
+            }
+            repository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            // Log the error for debugging
+            System.err.println("Error deleting customer with ID " + id + ": " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
         }
-        repository.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 
     // Lookup by name
