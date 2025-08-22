@@ -1,7 +1,7 @@
 // servers must allow CORS requests for these urls to work
 const custBaseURL = 'http://localhost:4000/api/customers';
 const authBaseUrl = 'http://localhost:8081/account';
-const eventBaseUrl = 'http://localhost:8080/api/events';
+const eventBaseUrl = 'http://localhost:8082/api/events';
 const regBaseUrl = 'http://localhost:8080/api/registration';
 
 let token = null;

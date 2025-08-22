@@ -143,10 +143,10 @@ export function App(props) {
       />
       <CustomerAddUpdateForm {...pvars} />
       <EventsList
-  events={events}
-  formObject={eventFormObject}
-  handleListClick={handleEventListClick}
-/>
+        events={events}
+        formObject={eventFormObject}
+        handleListClick={handleEventListClick}
+      />
       <EventAddUpdateForm {...epvars} />
     </div>
   );
