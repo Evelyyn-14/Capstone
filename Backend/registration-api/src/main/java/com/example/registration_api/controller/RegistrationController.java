@@ -48,7 +48,7 @@ public class RegistrationController {
         List<Map<String, Object>> response = registrations.stream().map(reg -> {
             Map<String, Object> result = new HashMap<>();
             result.put("registration", reg);
-            result.put("event", eventService.getEventById(reg.getEventId()));
+            result.put("event", eventService.getEventById(reg.getEventId(), token));
             return result;
         }).toList();
 
