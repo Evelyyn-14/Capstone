@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAll,getAllEvents, post, put, deleteById, deleteEventById, postEvent, putEvent} from './restdb.jsx';
+import { getAll,getAllEvents, post, put, deleteById, deleteEventById, postEvent, putEvent, getRegistrations} from './restdb.jsx';
 import './App.css';
 import { useNavigate } from 'react-router-dom';
 import { CustomerList } from './CustomerList.jsx';
@@ -17,6 +17,8 @@ export function App(props) {
 
   const [eventFormObject, setEventFormObject] = useState(blankEvent);
   const [formObject, setFormObject] = useState(blankCustomer);
+
+  const [registrations, setRegistrations] = useState([]);
   
   let mode = (formObject.id >= 0) ? 'Update' : 'Add';
   let modeEvent = (eventFormObject.id >= 0) ? 'Update' : 'Add';
@@ -27,7 +29,9 @@ export function App(props) {
   }
 
   useEffect(() => { getCustomers() }, [formObject]);
-  // useEffect(() => { getEvents() }, [eventFormObject]);
+  useEffect(() => { getEvents() }, [eventFormObject]);
+  useEffect(() => { getRegistrations(setRegistrations); }, []);
+
 
   const getCustomers = function () {
     getAll(setCustomers);
@@ -152,10 +156,12 @@ export function App(props) {
       />
       <CustomerAddUpdateForm {...pvars} />
       <EventsList
-  events={events}
-  formObject={eventFormObject}
-  handleListClick={handleEventListClick}
-/>
+        events={events}
+        formObject={eventFormObject}
+        handleListClick={handleEventListClick}
+        registrations={registrations}
+        refreshRegistrations={() => getRegistrations(setRegistrations)}
+      />
       <EventAddUpdateForm {...epvars} />
     </div>
   );
