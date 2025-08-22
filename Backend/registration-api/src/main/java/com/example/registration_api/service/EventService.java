@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class EventService {
 
-    private final String eventApiBaseUrl = "http://localhost:4000/api/events/";
+    private final String eventApiBaseUrl = "http://events-api:8082/api/events/";
 
     public EventDTO getEventById(Long eventId) {
         RestTemplate restTemplate = new RestTemplate();
