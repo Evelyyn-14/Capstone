@@ -17,6 +17,7 @@ services:
     volumes:
       - account_data:/data/accounts
 
+
   registration-api:
     build:
       context: ./Backend/registration-api
@@ -25,15 +26,17 @@ services:
     volumes:
       - account_data:/data/registration
 
-  frontend:
-    build:
-      context: ./Frontend
-    ports:
-      - "3000:80"
-    depends_on:
-      - customer-api
-      - account-api
+
+  # frontend:
+  #   build:
+  #     context: ./Frontend
+  #   ports:
+  #     - "3000:80"
+  #   depends_on:
+  #     - customer-api
+  #     - account-api
 
 volumes:
   customer_data:
   account_data:
+  events_data:
