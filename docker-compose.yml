@@ -24,7 +24,19 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - account_data:/data/registration
+      - registration_data:/data/registrations
+    depends_on:
+      - customer-api
+      - events-api
+
+  events-api:
+    build:
+      context: ./Backend/events-api
+    ports:
+      - "8082:8082"
+    volumes:
+      - event_data:/data/events
+
 
 
   # frontend:
@@ -39,4 +51,6 @@ services:
 volumes:
   customer_data:
   account_data:
-  events_data:
+  event_data:
+  registration_data:
+
