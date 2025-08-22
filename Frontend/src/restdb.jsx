@@ -8,13 +8,13 @@ let token = null;
 
 /* CUSTOMER REQUESTS */
 
-let getHeaders = (token) => {
+let getHeaders = () => {
   const myHeaders = new Headers({ "Content-Type": "application/json" });
   if (token != null && token !== undefined) {
     myHeaders.append("Authorization", "Bearer " + token);
   }
   return myHeaders;
-}
+};
 
 export async function getAll(setCustomers) {
   const myInit = {
@@ -278,6 +278,11 @@ export async function getJWTToken(username, password) {
   if (!response.ok) {
     return { "status": "error", "message": "Login failed: " + response.status };
   }
+
+  // Extract the token from response
+  const jwt = await response.text();
+  token = jwt; // store in global variable
+
   return { "status": "success", "message": "Login successful", "token": token };
 }
 
