@@ -27,7 +27,7 @@ export function App(props) {
   }
 
   useEffect(() => { getCustomers() }, [formObject]);
-  useEffect(() => { getEvents() }, [eventFormObject]);
+  // useEffect(() => { getEvents() }, [eventFormObject]);
 
   const getCustomers = function () {
     getAll(setCustomers);
@@ -136,6 +136,15 @@ export function App(props) {
   return ( 
     <div>
       <Account username={props.username} setUsername={props.setUsername}  />
+      <div style={{
+  width: '100%',
+  textAlign: 'center',
+  marginBottom: '100px',
+  color: '#00ff00',
+  fontFamily: "'Press Start 2P', monospace",
+  fontSize: '1.2rem'
+}}>
+</div>
       <CustomerList
         customers={customers}
         formObject={formObject}

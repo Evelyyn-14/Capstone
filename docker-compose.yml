@@ -22,9 +22,17 @@ services:
     build:
       context: ./Backend/registration-api
     ports:
-      - "8080:8080"
+      - "8082:8080"
     volumes:
       - account_data:/data/registration
+
+  events-api:
+    build:
+      context: ./Backend/events-api
+    ports:
+      - "8083:8080"
+    volumes:
+      - events_data:/data/events
 
 
   # frontend:
