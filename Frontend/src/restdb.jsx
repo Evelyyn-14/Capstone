@@ -228,6 +228,53 @@ export function lookupEventByTitle(title) {
   lookupCustomer(eventBaseUrl + "/byname");
 }
 
+/* REGISTRATION REQUESTS */
+export async function getRegistrations(setRegistrations) {
+  const myInit = {
+    method: 'GET',
+    headers: getHeaders(),
+    mode: 'cors'
+  };
+  try {
+    const response = await fetch('http://localhost:8080/api/registrations', myInit);
+    if (!response.ok) throw new Error(`Error fetching registrations: ${response.status}`);
+    const data = await response.json();
+    setRegistrations(data); // store as array of { registration, event }
+  } catch (error) {
+    alert(error);
+  }
+}
+
+export async function registerForEvent(eventId, postopCallback) {
+  const myInit = {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify({ eventId }),
+    mode: 'cors'
+  };
+  try {
+    const response = await fetch('http://localhost:8080/api/registrations', myInit);
+    if (!response.ok) throw new Error(`Error registering: ${response.status}`);
+    postopCallback();
+  } catch (error) {
+    alert(error);
+  }
+}
+
+export async function unregisterForEvent(registrationId, postopCallback) {
+  const myInit = {
+    method: 'DELETE',
+    headers: getHeaders(),
+    mode: 'cors'
+  };
+  try {
+    const response = await fetch(`http://localhost:8080/api/registrations/${registrationId}`, myInit);
+    if (!response.ok) throw new Error(`Error unregistering: ${response.status}`);
+    postopCallback();
+  } catch (error) {
+    alert(error);
+  }
+}
 
 /* LOGIN REQUESTS */
 export async function registerUser( username, password, email) {
