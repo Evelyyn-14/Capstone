@@ -2,62 +2,71 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getJWTToken } from './restdb';
 
-export function LoginForm(props) {
-  let [formData, setFormData] = useState({ username: "", password: "" });
-  let [status, setStatus] = useState({ status: "init", message: "Enter credentials and click 'login'", token: "" });
+export function LoginForm({ setUsername }) {
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [status, setStatus] = useState({
+    status: 'init',
+    message: "Enter credentials and click 'login'",
+    token: '',
+  });
+
   const navigate = useNavigate();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onRegisterClick = (formData) => {
-    navigate("/register");
+  const onRegisterClick = () => {
+    navigate('/register');
   };
 
-  let onLoginClick = async function (credentials) {
-    if (credentials === undefined ||
-      credentials === null ||
-      credentials.username === ""
-      || credentials.password === "") {
-      alert("Username and password cannot be empty");
+  const onLoginClick = async ({ username, password }) => {
+    if (!username || !password) {
+      alert('Username and password cannot be empty');
       return;
     }
-    const response = await getJWTToken(credentials.username, credentials.password);
-    setStatus({ status: response.status, message: response.message, token: response.token });
-    if (response.status === "error") {
-    } else if (response.status === "success") {
-      props.setUsername(credentials.username);
-      navigate("/app");
+
+    try {
+      console.debug('Attempting login with', { username, password });
+      const response = await getJWTToken(username, password);
+      console.debug('getJWTToken response', response);
+
+      setStatus({ status: response.status, message: response.message, token: response.token });
+
+      if (response.status === 'success') {
+        setUsername(username);
+        navigate('/app');
+      }
+    } catch (err) {
+      console.error('Login exception', err);
+      setStatus({ status: 'error', message: err.message, token: '' });
     }
+  };
 
-
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await onLoginClick(formData);
+  };
 
   return (
-    <form className='boxed'>
+    <form className="boxed" onSubmit={handleSubmit}>
       <h3>Login</h3>
-      {/* <p>Please enter your username and password to continue.</p>             */}
 
-      Username:<br />
-      <input type="text" name="username"
-        value={formData.username}
-        onChange={handleInputChange} />
-
+      <label>
+        Username:<br />
+        <input type="text" name="username" value={formData.username} onChange={handleInputChange} />
+      </label>
       <br />
-
-      Password:<br />
-      <input type="password" name="password"
-        value={formData.password}
-        onChange={handleInputChange} />
-
+      <label>
+        Password:<br />
+        <input type="password" name="password" value={formData.password} onChange={handleInputChange} />
+      </label>
       <br /><br />
-      <button type="button" onClick={() => onLoginClick(formData)}>Login</button>
-      <button type="button" onClick={() => onRegisterClick(formData)}>Register</button>
+      <button type="submit">Login</button>
+      <button type="button" onClick={onRegisterClick}>Register</button>
       <br />
-      <p>{status.message} </p>
-
+      <p>{status.message}</p>
     </form>
-  )
+  );
 }
