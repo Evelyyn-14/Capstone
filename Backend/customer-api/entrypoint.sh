@@ -7,7 +7,7 @@ mkdir -p /data/customers
 chown -R 1000:1000 /data/customers 2>/dev/null || true
 
 # Set write permissions
-chmod -R 777 /data/accounts
+chmod -R 777 /data/customers
 
 # Start Spring Boot
 exec java -jar app.jar

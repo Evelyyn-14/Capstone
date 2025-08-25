@@ -8,7 +8,7 @@ export function CustomerList(params){
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Pass</th>
+                <th>Password</th>
               </tr>
             </thead>
             <tbody>

@@ -3,7 +3,7 @@ version: "3.9"
 services:
   customer-api:
     build:
-      context: ./backend/customer-api
+      context: ./Backend/customer-api
     ports:
       - "4000:4000"
     volumes:
@@ -11,21 +11,42 @@ services:
 
   account-api:
     build:
-      context: ./backend/account-api
+      context: ./Backend/account-api
     ports:
       - "8081:8081"
     volumes:
       - account_data:/data/accounts
 
-  frontend:
+  registration-api:
     build:
-      context: ./frontend
+      context: ./Backend/registration-api
     ports:
-      - "3000:80"
+      - "8080:8080"
+    volumes:
+      - registration_data:/data/registrations
     depends_on:
       - customer-api
-      - account-api
+      - events-api
+
+  events-api:
+    build:
+      context: ./Backend/events-api
+    ports:
+      - "8082:8082"
+    volumes:
+      - event_data:/data/events
+
+  # frontend:
+  #   build:
+  #     context: ./Frontend
+  #   ports:
+  #     - "3000:80"
+  #   depends_on:
+  #     - customer-api
+  #     - account-api
 
 volumes:
   customer_data:
   account_data:
+  event_data:
+  registration_data:

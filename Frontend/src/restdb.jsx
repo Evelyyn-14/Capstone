@@ -1,19 +1,20 @@
 // servers must allow CORS requests for these urls to work
 const custBaseURL = 'http://localhost:4000/api/customers';
 const authBaseUrl = 'http://localhost:8081/account';
+const eventBaseUrl = 'http://localhost:8082/api/events';
+const regBaseUrl = 'http://localhost:8080/api/registration';
 
 let token = null;
 
-
 /* CUSTOMER REQUESTS */
 
-let getHeaders = (token) => {
+let getHeaders = () => {
   const myHeaders = new Headers({ "Content-Type": "application/json" });
   if (token != null && token !== undefined) {
     myHeaders.append("Authorization", "Bearer " + token);
   }
   return myHeaders;
-}
+};
 
 export async function getAll(setCustomers) {
   const myInit = {
@@ -120,6 +121,160 @@ export function lookupCustomerByName(username) {
   lookupCustomer(custBaseURL + "/byname");
 }
 
+/* Event REQUESTS */
+
+export async function getAllEvents(setEvents) {
+  const myInit = {
+    method: 'GET',
+    mode: 'cors',
+    headers: getHeaders()
+  };
+  const fetchData = async (url) => {
+    try {
+      const response = await fetch(url, myInit);
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.status}`);
+      }
+      const data = await response.json();
+      setEvents(data);
+    } catch (error) {
+      alert(error);
+    }
+  }
+  fetchData(eventBaseUrl);
+}
+
+export async function deleteEventById(id, postopCallback) {
+  const myInit = {
+    method: 'DELETE',
+    mode: 'cors',
+    headers: getHeaders()
+  };
+  const deleteItem = async (url) => {
+    try {
+      const response = await fetch(url, myInit);
+      if (!response.ok) {
+        throw new Error(`Error deleting data: ${response.status}`);
+      }
+      postopCallback();
+    } catch (error) {
+      alert(error);
+    }
+  }
+  deleteItem(eventBaseUrl + "/" + id);
+}
+
+export function postEvent(event, postopCallback) {
+  delete event.id;
+  const myInit = {
+    method: 'POST',
+    body: JSON.stringify(event),
+    headers: getHeaders(),
+    mode: 'cors'
+  };
+  const postItem = async (url) => {
+    try {
+      const response = await fetch(url, myInit);
+      if (!response.ok) {
+        throw new Error(`Error posting data: ${response.status}`);
+      }
+      postopCallback();
+    } catch (error) {
+      alert(error);
+    }
+  }
+  postItem(eventBaseUrl);
+}
+
+export function putEvent(event, postopCallback) {
+  const myInit = {
+    method: 'PUT',
+    body: JSON.stringify(event),
+    headers: getHeaders(),
+    mode: 'cors'
+  };
+  const putItem = async (url) => {
+    try {
+      const response = await fetch(url, myInit);
+      if (!response.ok) {
+        throw new Error(`Error puting data: ${response.status}`);
+      }
+      postopCallback();
+    } catch (error) {
+      alert(error);
+    }
+  }
+  putItem(eventBaseUrl + "/" + event.id);
+}
+
+export function lookupEventByTitle(title) {
+  var myInit = {
+    method: 'POST',
+    body: title,
+    headers: getHeaders(),
+    mode: 'cors'
+  };
+  const lookupCustomer = async (url) => {
+    try {
+      const response = await fetch(url, init);
+      if (!response.ok) {
+        throw new Error(`Error looking up event: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      alert(error);
+    }
+  };
+  lookupCustomer(eventBaseUrl + "/byname");
+}
+
+/* REGISTRATION REQUESTS */
+export async function getRegistrations(setRegistrations) {
+  const myInit = {
+    method: 'GET',
+    headers: getHeaders(),
+    mode: 'cors'
+  };
+  try {
+    const response = await fetch('http://localhost:8080/api/registrations', myInit);
+    if (!response.ok) throw new Error(`Error fetching registrations: ${response.status}`);
+    const data = await response.json();
+    setRegistrations(data); // store as array of { registration, event }
+  } catch (error) {
+    alert(error);
+  }
+}
+
+export async function registerForEvent(eventId, postopCallback) {
+  const myInit = {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify({ eventId }),
+    mode: 'cors'
+  };
+  try {
+    const response = await fetch('http://localhost:8080/api/registrations', myInit);
+    if (!response.ok) throw new Error(`Error registering: ${response.status}`);
+    postopCallback();
+  } catch (error) {
+    alert(error);
+  }
+}
+
+export async function unregisterForEvent(registrationId, postopCallback) {
+  const myInit = {
+    method: 'DELETE',
+    headers: getHeaders(),
+    mode: 'cors'
+  };
+  try {
+    const response = await fetch(`http://localhost:8080/api/registrations/${registrationId}`, myInit);
+    if (!response.ok) throw new Error(`Error unregistering: ${response.status}`);
+    postopCallback();
+  } catch (error) {
+    alert(error);
+  }
+}
 
 /* LOGIN REQUESTS */
 export async function registerUser( username, password, email) {
@@ -170,6 +325,11 @@ export async function getJWTToken(username, password) {
   if (!response.ok) {
     return { "status": "error", "message": "Login failed: " + response.status };
   }
+
+  // Extract the token from response
+  const jwt = await response.text();
+  token = jwt; // store in global variable
+
   return { "status": "success", "message": "Login successful", "token": token };
 }
 

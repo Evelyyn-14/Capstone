@@ -3,7 +3,7 @@ export function CustomerAddUpdateForm(params) {
     return (
       <div className="boxed">
         <div>
-          <h4>{params.mode}</h4>
+          <h4>{params.mode} Customer</h4>
         </div>
         <form >
           <table id="customer-add-update" >

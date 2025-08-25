@@ -1,123 +1,319 @@
-h3 {
-    margin: 0px;
-    padding: 5px;
-    padding-left: 0px;
-    font-family: sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+html, body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start;
+  font-family: 'Press Start 2P', monospace;
+  color: #00ff00;
+}
+button {
+  background-color: #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+}
+
+#root {
+  width: fit-content;
+  padding-top: 0px;
+}
+
+h3 {
+  margin: 0;
+  padding: 5px 0 5px 0;
+  font-family: sans-serif;
 }
 
 h4 {
-    margin: 0px;
-    padding: 5px;
-    padding-left: 0px;
-    font-family: sans-serif;
-    color: #444;    
+  margin: 0 0 10px 0;
+  margin-bottom: 10px;
+  color: #00ff00;
+  text-align: center;
+  font-size: 1rem;
 }
 
 h5 {
-    margin: 0px;
-    padding: 5px;
-    font-family: sans-serif;
-    font-weight: normal;
-    padding-bottom:0px;
-}
-table {
-    margin: 5px;
-    background-color: white;
-    font-family: monospace;
+  margin: 0;
+  padding: 5px 0 0 0;
+  font-family: sans-serif;
+  font-weight: normal;
 }
 
-td input[type='text'], td input[type='email']{
-    width: 95%;
+table {
+  margin: 5px auto;
+  font-family: monospace;
+  border-collapse: collapse;
+}
+
+td input[type='text'],
+td input[type='email'] {
+  width: 95%;
 }
 
 table,
 td,
 tr {
-    border: 1.3px solid #aaa;
-    border-collapse: collapse;
-    padding: 3px;
+  padding: 3px;
 }
 
 th {
-    background-color: lightgrey;
-    font-weight: normal;
-    border: 1px #aaa solid;
+  background-color: black;
+  font-weight: normal;
+  border: 1px #aaa solid;
 }
 
-form{
-    width: inherit;
-}
-
-div#root {
-    background-color: lightgrey;
-    width: 350px;
+form {
+  width: inherit;
 }
 
 .boxed {
-    border: 1.5px solid #aaa;
-    width: 315px;
-    margin: 10px;
-    background-color: #bababa;
-    display: inline-block;
-    border-radius: 5px;
-    padding-left: 5px;;
-    padding-right: 5px;
-    padding-top:0px;
-    padding-bottom: 5px;
+  border: 2px solid #00ff00;
+  background-color: black;
+  padding: 10px;
+  width: 750px;
+  margin: 10px auto;
+  margin-bottom: 60px;
 }
 
 .pad5 {
-    padding: 5px;
-    padding-bottom: 0px;
+  padding: 5px 0 0 0;
 }
 
 .floatR {
-    float: right;
+  float: right;
 }
 
 .floatL {
-    float: left;
-    width: 100%
+  float: left;
+  width: 100%;
 }
 
-.scroll{
-    height: 200px;
-    overflow: auto;
+.scroll {
+  height: 200px;
+  overflow: auto;
 }
 
-.small{
-    font-size:.7em;
+.small {
+  font-size: .7em;
 }
 
 .selected {
-    font-weight: bold;
+  font-weight: bold;
+  color: #3039FF;
+  background-color: #001a00;
 }
 
-table#customer-add-update tbody tr td.label{
-    text-align: right;
+.unselected {
+  font-weight: normal;
+  color: #00ff00;
 }
 
-#customer-list, table#customer-add-update {
-    width: inherit;
-    margin:0px;
-    border: 0px;
+table#customer-add-update tbody tr td.label,
+#event-add-update tbody tr td.label {
+  text-align: left;
+  width: 120px; 
+}
+
+#customer-add-update,
+#event-add-update {
+  background-color: black !important;
+  color: #00ff00;
+  border: 2px solid black;
+  width: 100%;
+}
+
+#customer-add-update td.label,
+#event-add-update td.label {
+  color: #00ff00;
+  font-size: 0.7rem;
+  padding-right: 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+}
+
+#customer-add-update input[type="text"],
+#customer-add-update input[type="email"],
+#event-add-update input[type="text"],
+#event-add-update input[type="email"] {
+  background-color: black;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 8px;
+  width: 95%;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+}
+
+#customer-add-update input[type="button"],
+#event-add-update input[type="button"] {
+  background-color: #00ff00;
+  color: black;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  margin: 0.5rem;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+#customer-add-update input[type="button"]:hover,
+#event-add-update input[type="button"]:hover {
+  background-color: #33ff33;
+}
+
+#customer-add-update input[type="button"]:active,
+#event-add-update input[type="button"]:active {
+  transform: scale(0.95);
+}
+
+#customer-add-update .button-bar,
+#event-add-update .button-bar {
+  text-align: center;
+}
+
+.boxed h4 {
+  margin: 0 0 10px 0;
+  color: #00ff37;
+  text-align: center;
+  font-size: 1rem;
+}
+
+#customer-list {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: black;
+  color: #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  margin: 0 auto;
+}
+
+#customer-list th,
+#customer-list td {
+  border: 1px solid #00ff00;
+  padding: 8px;
+  text-align: left;
+  font-size: 0.7rem;
+}
+
+#customer-list th {
+  background-color: black;
+  color: #00ff00;
+}
+
+#customer-list tr:hover {
+  background-color: #003300;
+  cursor: pointer;
+}
+
+#customer-list tr.selected {
+  font-weight: bold;
+  color: #3039FF;
+  background-color: #001a00;
+}
+
+#customer-list tr.unselected {
+  color: #00ff00;
 }
 
 .icon-button {
-  /* 1. Make the button a flex container */
   display: flex;
-
-  /* 2. Vertically center the items (image and text) */
   align-items: center;
-
-  /* 3. Add space between the image and text */
-  gap: 8px; /* Adjust the space as you like */
-
-  /* Optional: Add some padding and basic styling */
+  gap: 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background-color: #f0f0f0;
   cursor: pointer;
   font-size: 16px;
 }
+
+#event-list {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: black;
+  color: #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  margin: 0 auto;
+}
+
+#event-list th,
+#event-list td {
+  border: 1px solid #00ff00;
+  padding: 8px;
+  text-align: left;
+  font-size: 0.7rem;
+}
+
+#event-list th {
+  background-color: black;
+  color: #00ff00;
+}
+
+#event-list tr:hover {
+  background-color: #003300;
+  cursor: pointer;
+}
+
+#event-list tr.selected {
+  font-weight: bold;
+  color: #3039FF;
+  background-color: #001a00;
+}
+
+#event-list tr.unselected {
+  color: #00ff00;
+}
+
+input[type="datetime-local"] {
+  background-color: black;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 8px;
+  width: 95%;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  caret-color: #00ff00;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(64%) sepia(100%) saturate(500%) hue-rotate(70deg);
+  cursor: pointer;
+}
+
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.filter-buttons button {
+  padding: 4px 8px;
+  border: 1px solid #00ff00;
+  background: black;
+  color: #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.filter-buttons button:hover {
+  background-color: #003300;
+}
+
+.filter-buttons button.active {
+  background-color: #00ff00;
+  color: black;
+}
+
+.colorful-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  animation: rainbowText 5s linear infinite;
+}
+
