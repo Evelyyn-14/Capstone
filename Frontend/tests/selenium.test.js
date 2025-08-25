@@ -52,16 +52,16 @@ describe('Frontend App E2E Test', function () {
     await passwordInput.clear();
 
     // Type credentials slowly to allow React time to register each keystroke
-    await usernameInput.sendKeys('Ryanc');
-    await driver.sleep(200); // short pause
-    await passwordInput.sendKeys('pass');
-    await driver.sleep(200); // short pause
+    await usernameInput.sendKeys('eescobedo');
+    await driver.sleep(200); 
+    await passwordInput.sendKeys('hello');
+    await driver.sleep(200);
 
     // Double-check input values (optional but safe)
     const uVal = await usernameInput.getAttribute('value');
     const pVal = await passwordInput.getAttribute('value');
-    assert.strictEqual(uVal, 'Ryanc');
-    assert.strictEqual(pVal, 'pass');
+    assert.strictEqual(uVal, 'eescobedo');
+    assert.strictEqual(pVal, 'hello');
 
     // Click login
     await loginButton.click();

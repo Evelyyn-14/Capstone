@@ -23,7 +23,11 @@ export function LoginForm({ setUsername }) {
 
   const onLoginClick = async ({ username, password }) => {
     if (!username || !password) {
-      alert('Username and password cannot be empty');
+      setStatus({
+        status: 'error',
+        message: 'Username and password cannot be empty',
+        token: '',
+      });
       return;
     }
 
@@ -66,7 +70,9 @@ export function LoginForm({ setUsername }) {
       <button type="submit">Login</button>
       <button type="button" onClick={onRegisterClick}>Register</button>
       <br />
-      <p>{status.message}</p>
+      <p style={{ color: status.status === 'error' ? 'red' : 'black' }}>
+        {status.message}
+      </p>
     </form>
   );
 }
