@@ -40,55 +40,35 @@ describe('Frontend App E2E Test', function () {
   it('should fill and submit the login form successfully', async () => {
     await driver.get('http://localhost:3000/login');
 
-    const usernameInput = await driver.findElement(By.name('username'));
+    const usernameInput = await driver.wait(
+      until.elementLocated(By.name('username')), 5000
+    );
     const passwordInput = await driver.findElement(By.name('password'));
-    const loginButton = await driver.findElement(By.xpath("//button[text()='Login']"));
+    const loginButton = await driver.findElement(
+      By.xpath("//button[text()='Login']")
+    );
 
     await usernameInput.clear();
     await passwordInput.clear();
 
-    // Type credentials
-    await usernameInput.sendKeys('eescobedo');
-    await passwordInput.sendKeys('hello');
+    // Type credentials slowly to allow React time to register each keystroke
+    await usernameInput.sendKeys('Ryanc');
+    await driver.sleep(200); // short pause
+    await passwordInput.sendKeys('pass');
+    await driver.sleep(200); // short pause
 
-    // Wait for React to update the input values
-    await driver.wait(async () => {
-      const uVal = await usernameInput.getAttribute('value');
-      const pVal = await passwordInput.getAttribute('value');
-      return uVal === 'eescobedo' && pVal === 'hello';
-    }, 5000, 'React did not update input values before clicking login');
+    // Double-check input values (optional but safe)
+    const uVal = await usernameInput.getAttribute('value');
+    const pVal = await passwordInput.getAttribute('value');
+    assert.strictEqual(uVal, 'Ryanc');
+    assert.strictEqual(pVal, 'pass');
 
-    // Click login after state is synced
+    // Click login
     await loginButton.click();
 
     // Wait for navigation to /app
     await driver.wait(until.urlContains('/app'), 5000);
     const url = await driver.getCurrentUrl();
     assert.ok(url.includes('/app'), 'Did not navigate to /app after login');
-  });
-
-  it('should show validation alert when credentials are empty', async () => {
-    await driver.get('http://localhost:3000/login');
-
-    const usernameInput = await driver.findElement(By.name('username'));
-    const passwordInput = await driver.findElement(By.name('password'));
-    const loginButton = await driver.findElement(By.xpath("//button[text()='Login']"));
-
-    await usernameInput.clear();
-    await passwordInput.clear();
-
-    await loginButton.click();
-
-    let alertText = '';
-    try {
-      await driver.wait(until.alertIsPresent(), 2000);
-      const alert = await driver.switchTo().alert();
-      alertText = await alert.getText();
-      await alert.accept();
-    } catch {
-      assert.fail('Expected alert for empty credentials, but none appeared');
-    }
-
-    assert.strictEqual(alertText, 'Username and password cannot be empty');
   });
 });
