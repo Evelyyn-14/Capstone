@@ -10,23 +10,54 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "events")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Event {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 200)
     private String title;
-
-    @NotNull
     private LocalDateTime eventDateTime;
-
-    @NotBlank
-    @Size(max = 300)
     private String location;
+
+    public Event() {
+    }
+
+    public Event(String title, LocalDateTime eventDateTime, String location) {
+        this.title = title;
+        this.eventDateTime = eventDateTime;
+        this.location = location;
+    }
+
+    // getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public LocalDateTime getEventDateTime() {
+        return eventDateTime;
+    }
+
+    public void setEventDateTime(LocalDateTime eventDateTime) {
+        this.eventDateTime = eventDateTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

@@ -2,13 +2,13 @@
 export function CustomerList(params){
     return (
       <div className="boxed">
-      <h4>Customer Listttt</h4>
+      <h4>Customer List</h4>
           <table id="customer-list">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Pass</th>
+                <th>Password</th>
               </tr>
             </thead>
             <tbody>

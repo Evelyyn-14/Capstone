@@ -28,7 +28,7 @@ export function Account(props) {
 
   return (
     <div style={padDivTop}>
-      <div className='boxed pad5' >
+      <div >
         <h3 className='floatL' style={accountContainer}>
           {appTitle}
           <button className='floatR icon-button'

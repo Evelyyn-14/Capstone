@@ -6,10 +6,15 @@ html, body {
   padding: 0;
   height: 100%;
   display: flex;
-  justify-content: center;  /* center horizontally */
-  align-items: flex-start;  /* top alignment */
+  justify-content: center; 
+  align-items: flex-start;
   font-family: 'Press Start 2P', monospace;
   color: #00ff00;
+}
+button {
+  background-color: #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
 }
 
 #root {
@@ -25,6 +30,7 @@ h3 {
 
 h4 {
   margin: 0 0 10px 0;
+  margin-bottom: 10px;
   color: #00ff00;
   text-align: center;
   font-size: 1rem;
@@ -51,7 +57,6 @@ td input[type='email'] {
 table,
 td,
 tr {
-  border: 1.3px solid #aaa;
   padding: 3px;
 }
 
@@ -109,14 +114,15 @@ form {
 
 table#customer-add-update tbody tr td.label,
 #event-add-update tbody tr td.label {
-  text-align: right;
+  text-align: left;
+  width: 120px; 
 }
 
 #customer-add-update,
 #event-add-update {
   background-color: black !important;
   color: #00ff00;
-  border: 2px solid #00ff00;
+  border: 2px solid black;
   width: 100%;
 }
 
@@ -125,6 +131,8 @@ table#customer-add-update tbody tr td.label,
   color: #00ff00;
   font-size: 0.7rem;
   padding-right: 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
 }
 
 #customer-add-update input[type="text"],
@@ -170,7 +178,7 @@ table#customer-add-update tbody tr td.label,
 
 .boxed h4 {
   margin: 0 0 10px 0;
-  color: #00ff00;
+  color: #00ff37;
   text-align: center;
   font-size: 1rem;
 }
@@ -222,3 +230,90 @@ table#customer-add-update tbody tr td.label,
   cursor: pointer;
   font-size: 16px;
 }
+
+#event-list {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: black;
+  color: #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  margin: 0 auto;
+}
+
+#event-list th,
+#event-list td {
+  border: 1px solid #00ff00;
+  padding: 8px;
+  text-align: left;
+  font-size: 0.7rem;
+}
+
+#event-list th {
+  background-color: black;
+  color: #00ff00;
+}
+
+#event-list tr:hover {
+  background-color: #003300;
+  cursor: pointer;
+}
+
+#event-list tr.selected {
+  font-weight: bold;
+  color: #3039FF;
+  background-color: #001a00;
+}
+
+#event-list tr.unselected {
+  color: #00ff00;
+}
+
+input[type="datetime-local"] {
+  background-color: black;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 8px;
+  width: 95%;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  caret-color: #00ff00;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(64%) sepia(100%) saturate(500%) hue-rotate(70deg);
+  cursor: pointer;
+}
+
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.filter-buttons button {
+  padding: 4px 8px;
+  border: 1px solid #00ff00;
+  background: black;
+  color: #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.filter-buttons button:hover {
+  background-color: #003300;
+}
+
+.filter-buttons button.active {
+  background-color: #00ff00;
+  color: black;
+}
+
+.colorful-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  animation: rainbowText 5s linear infinite;
+}
+

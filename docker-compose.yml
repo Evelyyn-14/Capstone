@@ -17,12 +17,11 @@ services:
     volumes:
       - account_data:/data/accounts
 
-
   registration-api:
     build:
       context: ./Backend/registration-api
     ports:
-      - "8082:8080"
+      - "8080:8080"
     volumes:
       - registration_data:/data/registrations
     depends_on:
@@ -36,16 +35,6 @@ services:
       - "8082:8082"
     volumes:
       - event_data:/data/events
-
-
-  events-api:
-    build:
-      context: ./Backend/events-api
-    ports:
-      - "8083:8080"
-    volumes:
-      - events_data:/data/events
-
 
   # frontend:
   #   build:
@@ -61,4 +50,3 @@ volumes:
   account_data:
   event_data:
   registration_data:
-

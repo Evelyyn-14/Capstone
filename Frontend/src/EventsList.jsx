@@ -1,11 +1,13 @@
-import { unregisterForEvent, registerForEvent} from './restdb.jsx';
+import { useState } from "react";
+import { unregisterForEvent, registerForEvent } from './restdb.jsx';
 
 export function EventsList({ events, formObject, handleListClick, registrations, refreshRegistrations }) {
+  const [filter, setFilter] = useState("all"); // all | registered | unregistered
 
   const isRegistered = (eventId) => {
     const reg = registrations.find(r => r.event.id === eventId);
     return reg ? reg.registration.id : null;
-  }
+  };
 
   const handleRegisterClick = (eventId) => {
     const regId = isRegistered(eventId);
@@ -14,11 +16,41 @@ export function EventsList({ events, formObject, handleListClick, registrations,
     } else {
       registerForEvent(eventId, refreshRegistrations);
     }
-  }
+  };
+
+  // Apply filter
+  const filteredEvents = events.filter(event => {
+    if (filter === "registered") return isRegistered(event.id);
+    if (filter === "unregistered") return !isRegistered(event.id);
+    return true; // all
+  });
 
   return (
     <div className="boxed">
-      <h4>Events List</h4>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h4>Events List</h4>
+        <div className="filter-buttons">
+          <button 
+            onClick={() => setFilter("all")} 
+            className={filter === "all" ? "active" : ""}
+          >
+            All
+          </button>
+          <button 
+            onClick={() => setFilter("registered")} 
+            className={filter === "registered" ? "active" : ""}
+          >
+            Registered
+          </button>
+          <button 
+            onClick={() => setFilter("unregistered")} 
+            className={filter === "unregistered" ? "active" : ""}
+          >
+            Unregistered
+          </button>
+        </div>
+      </div>
+
       <table id="event-list">
         <thead>
           <tr>
@@ -29,7 +61,7 @@ export function EventsList({ events, formObject, handleListClick, registrations,
           </tr>
         </thead>
         <tbody>
-          {events.map((item) => (
+          {filteredEvents.map((item) => (
             <tr
               key={item.id}
               className={item.id === formObject.id ? "selected" : ""}
