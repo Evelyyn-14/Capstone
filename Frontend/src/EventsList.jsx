@@ -3,6 +3,7 @@ import { unregisterForEvent, registerForEvent } from './restdb.jsx';
 
 export function EventsList({ events, formObject, handleListClick, registrations, refreshRegistrations }) {
   const [filter, setFilter] = useState("all"); // all | registered | unregistered
+  const [confirmation, setConfirmation] = useState(""); // <-- Add this line
 
   const isRegistered = (eventId) => {
     const reg = registrations.find(r => r.event.id === eventId);
@@ -12,9 +13,16 @@ export function EventsList({ events, formObject, handleListClick, registrations,
   const handleRegisterClick = (eventId) => {
     const regId = isRegistered(eventId);
     if (regId) {
-      unregisterForEvent(regId, refreshRegistrations);
+      unregisterForEvent(regId, () => {
+        refreshRegistrations();
+        setConfirmation(""); // Clear message on unregister
+      });
     } else {
-      registerForEvent(eventId, refreshRegistrations);
+      registerForEvent(eventId, () => {
+        refreshRegistrations();
+        setConfirmation("successfully registered"); // Set message on register
+        setTimeout(() => setConfirmation(""), 3000); // Optionally clear after 3s
+      });
     }
   };
 
@@ -50,6 +58,13 @@ export function EventsList({ events, formObject, handleListClick, registrations,
           </button>
         </div>
       </div>
+
+      {/* Confirmation message */}
+      {confirmation && (
+        <div className="confirmation-message" style={{ color: "green", margin: "10px 0" }}>
+          {confirmation}
+        </div>
+      )}
 
       <table id="event-list">
         <thead>
